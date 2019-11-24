@@ -1,0 +1,92 @@
+/*
+***********************
+*** gameCard Styles ***
+***********************
+*/
+
+/* Sets the number of columns in .card-columns categories*/
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 5;
+    }
+}
+
+/*
+*** Styles individual elements of the gameCards
+*/
+
+.card-body {
+  padding: 10px 20px;
+}
+
+.gameCard hr {
+  margin: 10px;
+}
+
+.gameCard h4 {
+  margin: 2px 0px;
+  line-height: 30px;
+}
+
+.gameCardScore {
+  line-height: 7px;
+  margin: 0px 0px 15px 0px;
+}
+
+.gameCardOwner {
+  font-size: 10pt;
+}
+
+.gameCardDetails {
+  font-size: 11pt;
+  padding: 5px 5px;
+}
+
+/*
+.gameCardFooterPregame {
+  background: lightgrey;
+  color: black;
+}
+
+.gameCardFooterInProgress {
+  background: #4d4d4d;
+  color: white;
+}
+
+.gameCardFooterGameOver {
+  background: darkgrey;
+  color: white; 
+}
+*/
+.gameCardFooterPregame {
+  background: #333333;
+  color: white;
+}
+
+.gameCardFooterInProgress {
+  background: #4d4d4d;
+  color: white;
+}
+
+.gameCardFooterGameOver {
+  background: lightgrey;
+  color: black;
+}
