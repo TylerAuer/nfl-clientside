@@ -199,9 +199,32 @@ xhttp.onreadystatechange = function () {
 
     console.log(standings)
     console.log(teams)
-    // Determines each persons rank
 
+    // Determines each persons rank
     var pointsCounter = 0
+
+    // #############################
+    // Generates Standings Table
+    // #############################
+
+    const standingsTableBody = document.getElementById('standingsTableBody')
+
+    for (participant in standings) {
+
+      // Create an empty <tr> element and add it to the 1st position of the table:
+      var row = standingsTableBody.insertRow(0);
+
+      // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+      var cell1 = row.insertCell().innerHTML = standings[participant][0][0]
+      var cell2 = row.insertCell().innerHTML = participant
+      var cell3 = row.insertCell().innerHTML = standings[participant][0][1]
+      var cell4 = row.insertCell().innerHTML = standings[participant][1][2]
+      var cell5 = row.insertCell().innerHTML = standings[participant][2][2]
+      var cell6 = row.insertCell().innerHTML = standings[participant][3][2]
+      var cell7 = row.insertCell().innerHTML = standings[participant][4][2]
+      var cell8 = row.insertCell().innerHTML = standings[participant][5][2]
+      var cell9 = row.insertCell().innerHTML = standings[participant][6][2]
+    }
 
   }
 }
@@ -212,24 +235,6 @@ xhttp.open("GET", "http://www.nfl.com/feeds-rs/standings/2019/REG", true);
 // Used when testing from local file (for flights with no wifi)
 // xhttp.open("GET", "http://localhost:8888/APIs/xml.xml", true);
 xhttp.send();
-
-
-// #############################
-// Generates Standings table
-// #############################
-
-const standingsTable = document.createElement('table')
-standingsTable.className += " table"
-
-const standingsTableHead = document.createElement('thead')
-standingsTable.className += " thead-dark"
-
-const standingsTableHeadRow = document.createElement('trow')
-
-const standingsTableBody = document.createElement('tbody')
-
-//standingsTable.appendChild()
-
 
 // ########################
 // Generates the Scorecards
