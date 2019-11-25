@@ -197,9 +197,21 @@ xhttp.onreadystatechange = function () {
       standings[participant][0][1] = sumOfPoints
     }
 
-    // ############################
-    // Determines each person's rank
-    // ############################
+    // #############################################
+    // Determines each person's rank (last-to-first)
+    // #############################################
+
+    // How rank is determined; move to next level if tied
+    // -------------------------
+    // (0) Most pts overall
+    // (1) Most pts for 6th round team
+    // (2) Most pts for 5th round team
+    // (3) Most pts for 4th round team
+    // (4) Most pts for 3rd round team
+    // (5) Most pts for 2nd round team
+    // (6) Most pts for 1st round team
+    // (7) Latest pick in round 1 <-- never a tie!
+    // -------------------------
 
     // Makes an array of participants whose rank has not been assigned yet
     // Array empties in while loop as ranks are assigned
@@ -213,24 +225,21 @@ xhttp.onreadystatechange = function () {
     var whileLoopCounter = 0
 
     while (unrankedParticipantsList.length > 0) {
-      whileLoopCounter += 1
-      // console.log(whileLoopCounter + " iterations")
-      // console.log("Points being checked: " + pointsCounter)
-      // console.log(unrankedParticipantsList)
 
-      if (pointsCounter > 40) {
+      // Avoid crash if error
+      if (pointsCounter > 200) {
         console,
         log("Passed 100 points")
         break
       }
 
-      if (whileLoopCounter > 150) {
+      // Avoid crash if error
+      if (whileLoopCounter > 300) {
         break
       }
 
-      var lowestScoringParticipantsLeft = []
-
       // Collects all participants at a given score
+      var lowestScoringParticipantsLeft = []
       for (participant of unrankedParticipantsList) {
         // If participant's score matches the current score being checked
         if (standings[participant][0][1] == pointsCounter) {
@@ -244,21 +253,9 @@ xhttp.onreadystatechange = function () {
         continue
       }
 
-      // Figures out who wins the tiebreakers:
-      // (0) Most pts overall
-      // (1) Most pts for 6th round team
-      // (2) Most pts for 5th round team
-      // (3) Most pts for 4th round team
-      // (4) Most pts for 3rd round team
-      // (5) Most pts for 2nd round team
-      // (6) Most pts for 1st round team
-      // (7) Latest pick in round 1 <-- never a tie!
-
       // Goes through the 7 possible tiebreakers which are always index of 2 in standings arrays
-      tiebreakerLevel = 6
-
       // Loops until only one person left; skipped if only one person at a given score
-      console.log(lowestScoringParticipantsLeft)
+      tiebreakerLevel = 6
       while (lowestScoringParticipantsLeft.length > 1) {
         var tiebreakerScore = []
 
@@ -267,18 +264,18 @@ xhttp.onreadystatechange = function () {
           tiebreakerScore.push(parseInt(standings[participant][tiebreakerLevel][2]))
         }
 
-        console.log("tiebreaker round: " + tiebreakerLevel)
-        console.log(tiebreakerScore)
         // Determines the lowest value (so higher scorers can be removed)
         minTiebreakerScore = Math.min(...tiebreakerScore)
-        console.log("Min score: " + minTiebreakerScore)
 
+        // Removes participants if they *WIN* a tiebreaker
         for (var i = 0; i < lowestScoringParticipantsLeft.length; i++) {
           if (standings[lowestScoringParticipantsLeft[i]][tiebreakerLevel][2] > minTiebreakerScore) {
             lowestScoringParticipantsLeft.splice(i, 1);
           }
         }
-        tiebreakerLevel -= 1 // Moves to the next tiebreaker
+
+        // Moves to the next tiebreaker to be used if > 1 person left
+        tiebreakerLevel -= 1
       }
 
       // Assign rank equal to length of unrankedParticipants
