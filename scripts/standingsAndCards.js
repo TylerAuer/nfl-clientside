@@ -142,6 +142,12 @@ var standings = {
   ]
 }
 
+var numberOfParticipants = 0
+for (participant in standings) {
+  numberOfParticipants += 1
+}
+console.log(numberOfParticipants)
+
 // #######################
 // Collect Wins and Losses
 // Updates teams then standings dicts
@@ -279,7 +285,7 @@ xhttp.onreadystatechange = function () {
       }
 
       // Assign rank equal to length of unrankedParticipants
-      standings[lowestScoringParticipantsLeft[0]][0][0] = String(unrankedParticipantsList.length)
+      standings[lowestScoringParticipantsLeft[0]][0][0] = unrankedParticipantsList.length
 
       // Remove ranked participant from unrankedParticipants 
       for (var i = 0; i < unrankedParticipantsList.length; i++) {
@@ -299,23 +305,27 @@ xhttp.onreadystatechange = function () {
 
     const standingsTableBody = document.getElementById('standingsTableBody')
 
-    for (participant in standings) {
+    for (var i = 1; i <= numberOfParticipants; i++) {
 
-      // Create an empty <tr> element and add it to the 1st position of the table:
-      var row = standingsTableBody.insertRow(0);
+      for (participant in standings) {
 
-      // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-      var cell1 = row.insertCell().innerHTML = standings[participant][0][0]
-      var cell2 = row.insertCell().innerHTML = participant
-      var cell3 = row.insertCell().innerHTML = standings[participant][0][1]
-      var cell4 = row.insertCell().innerHTML = standings[participant][1][2]
-      var cell5 = row.insertCell().innerHTML = standings[participant][2][2]
-      var cell6 = row.insertCell().innerHTML = standings[participant][3][2]
-      var cell7 = row.insertCell().innerHTML = standings[participant][4][2]
-      var cell8 = row.insertCell().innerHTML = standings[participant][5][2]
-      var cell9 = row.insertCell().innerHTML = standings[participant][6][2]
+        if (standings[participant][0][0] == i) {
+          // Create an empty <tr> element and add it to the 1st position of the table:
+          var row = standingsTableBody.insertRow(-1);
+
+          // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+          var cell1 = row.insertCell().innerHTML = standings[participant][0][0]
+          var cell2 = row.insertCell().innerHTML = participant
+          var cell3 = row.insertCell().innerHTML = standings[participant][0][1]
+          var cell4 = row.insertCell().innerHTML = standings[participant][1][2]
+          var cell5 = row.insertCell().innerHTML = standings[participant][2][2]
+          var cell6 = row.insertCell().innerHTML = standings[participant][3][2]
+          var cell7 = row.insertCell().innerHTML = standings[participant][4][2]
+          var cell8 = row.insertCell().innerHTML = standings[participant][5][2]
+          var cell9 = row.insertCell().innerHTML = standings[participant][6][2]
+        }
+      }
     }
-
   }
 }
 
