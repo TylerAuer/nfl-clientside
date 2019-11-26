@@ -11,13 +11,14 @@ This style of league is great because it takes very little effort but makes the 
 
 ## API Information
 I used two different NFL APIs to build this site:
-1.  'XML' - http://www.nfl.com/feeds-rs/standings/2019/REG
+1.  ***XML*** - http://www.nfl.com/feeds-rs/standings/2019/REG
     
-    This feed contains many details including[^1]: 
+    This feed updates within about 5 minute of the end of a game. It contains many details including: 
     - wins, losses, and ties
     - week number (updates Thu. AM)
+    - *Note that it uses JAC for Jacksonville instead of JAX*
 
-2.  'JSON' - http://www.nfl.com/liveupdate/scores/scores.json
+2.  ***JSON*** - http://www.nfl.com/liveupdate/scores/scores.json
 
     This feed is in real-time as games are progressing. Games have a few different states:
     -   Pregame
@@ -35,8 +36,7 @@ I used two different NFL APIs to build this site:
 -   Accessing APIs
 -   Use JavaScript to manipulate HTML DOM
 -   Learning Git
+
 #### Skills to Strenghten
 -   Responsive design with bootstrap
 -   JavaScript Functions
-
-[^1]: Note that it uses JAC for Jacksonville instead of JAX
