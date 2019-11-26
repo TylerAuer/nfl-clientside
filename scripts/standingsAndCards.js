@@ -366,10 +366,6 @@ xhttp.onreadystatechange = function () {
         }
       }
     }
-    // Enables bootstrap tooltips
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
   }
 }
 // Actualy live API Get request
@@ -472,6 +468,12 @@ request.onload = function () {
         details.innerHTML = ("<i>Pregame</i>")
         details.className += " gameCardFooterPregame"
 
+        // If game is in halftime
+      } else if (qtr = "Halftime") {
+        details.innerHTML = (qtr)
+        gameCard.className += " border-secondary"
+        details.className += " gameCardFooterInProgress"
+
         // If game in progress
       } else if (qtr != "Final") {
         details.innerHTML = (data[gameId]["clock"] + " | " + qtr)
@@ -505,3 +507,11 @@ request.onload = function () {
 }
 
 request.send()
+
+// Runs once everything else has loaded and run
+$(window).load(function () {
+  // Enables bootstrap tooltips
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+});
