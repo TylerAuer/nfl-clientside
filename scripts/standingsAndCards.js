@@ -146,7 +146,6 @@ var numberOfParticipants = 0
 for (participant in standings) {
   numberOfParticipants += 1
 }
-console.log(numberOfParticipants)
 
 // #######################
 // Collect Wins and Losses
@@ -296,7 +295,6 @@ xhttp.onreadystatechange = function () {
 
       }
     }
-    console.log(standings)
 
 
     // #############################
@@ -310,25 +308,52 @@ xhttp.onreadystatechange = function () {
       for (participant in standings) {
 
         if (standings[participant][0][0] == i) {
-          // Create an empty <tr> element and add it to the 1st position of the table:
-          var row = standingsTableBody.insertRow(-1);
 
-          // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-          var cell1 = row.insertCell().innerHTML = standings[participant][0][0]
-          var cell2 = row.insertCell().innerHTML = participant
-          var cell3 = row.insertCell().innerHTML = standings[participant][0][1]
-          var cell4 = row.insertCell().innerHTML = standings[participant][1][2]
-          var cell5 = row.insertCell().innerHTML = standings[participant][2][2]
-          var cell6 = row.insertCell().innerHTML = standings[participant][3][2]
-          var cell7 = row.insertCell().innerHTML = standings[participant][4][2]
-          var cell8 = row.insertCell().innerHTML = standings[participant][5][2]
-          var cell9 = row.insertCell().innerHTML = standings[participant][6][2]
+          // Create an empty <tr> element and add it to last position of the table:
+          var row = standingsTableBody.insertRow(-1)
+
+          // Rank
+          const cell1 = row.insertCell()
+          cell1.className += " tableRank align-middle"
+          cell1.innerHTML = standings[participant][0][0]
+
+          // Owner
+          const cell2 = row.insertCell()
+          cell2.className += " tableOwner align-middle"
+          cell2.innerHTML = participant
+
+          // Overal Pts
+          const cell3 = row.insertCell()
+          cell3.className += " tableOverallPoints align-middle"
+          cell3.innerHTML = standings[participant][0][1]
+
+          //Points per team drafted
+          for (pick in standings[participant]) {
+            if (pick == 0) {
+              continue
+            }
+
+            const cell4 = row.insertCell()
+
+            // If team for wins
+            if (standings[participant][pick][1] == "W") {
+              cell4.className += " tableWin align-middle d-none d-md-table-cell"
+            } else {
+              cell4.className += " tableLoss align-middle d-none d-md-table-cell"
+            }
+
+            cell4.innerHTML = (
+              standings[participant][pick][0] +
+              "<br>" +
+              standings[participant][pick][2] +
+              " pts."
+            )
+          }
         }
       }
     }
   }
 }
-
 // Actualy live API Get request
 xhttp.open("GET", "http://www.nfl.com/feeds-rs/standings/2019/REG", true);
 
