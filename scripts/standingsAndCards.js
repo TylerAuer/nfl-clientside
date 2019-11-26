@@ -342,6 +342,20 @@ xhttp.onreadystatechange = function () {
               cell4.className += " tableLoss align-middle d-none d-md-table-cell"
             }
 
+            var recordString = (
+              standings[participant][pick][0] + ": " +
+              teams[standings[participant][pick][0]][2] + "-" +
+              teams[standings[participant][pick][0]][3]
+            )
+            if (teams[standings[participant][pick][0]][4] != "0") {
+              recordString += "-" + teams[standings[participant][pick][0]][4]
+            }
+
+            cell4.setAttribute("data-toggle", "tooltip")
+            cell4.setAttribute("data-placement", "top")
+            cell4.setAttribute("title", recordString)
+
+            // data-toggle="tooltip" data-placement="top" title="Tooltip on top"
             cell4.innerHTML = (
               standings[participant][pick][0] +
               "<br>" +
@@ -352,6 +366,10 @@ xhttp.onreadystatechange = function () {
         }
       }
     }
+    // Enables bootstrap tooltips
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 }
 // Actualy live API Get request
@@ -383,7 +401,6 @@ request.onload = function () {
 
   if (request.status >= 200 && request.status < 400) {
 
-    // This is the first time I was able to access something deep in the nest. Now I need to figure out how to iterate through the games
     for (game in data) {
 
       var gameId = game // holds iterator index for loop
