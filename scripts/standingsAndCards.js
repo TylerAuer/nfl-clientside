@@ -469,7 +469,7 @@ request.onload = function () {
         details.className += " gameCardFooterPregame"
 
         // If game is in halftime
-      } else if (qtr = "Halftime") {
+      } else if (qtr == "Halftime") {
         details.innerHTML = (qtr)
         gameCard.className += " border-secondary"
         details.className += " gameCardFooterInProgress"
@@ -509,9 +509,9 @@ request.onload = function () {
 request.send()
 
 // Runs once everything else has loaded and run
-$(window).load(function () {
+$(document).ready(function () {
   // Enables bootstrap tooltips
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
-});
+})
