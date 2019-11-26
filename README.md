@@ -30,6 +30,11 @@ I used two different NFL APIs to build this site:
     -   *5* (I haven't seen a game in OT to test this yet)
     -   Final
 
+## Possible Future Features
+-   Change gamecard styles depending on the score / result
+-   Bump chart showing rank over time
+-   Smoother refreshing of standings and cards
+
 ## Learning Goals
 
 #### New Skills

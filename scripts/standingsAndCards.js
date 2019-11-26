@@ -233,13 +233,7 @@ xhttp.onreadystatechange = function () {
 
       // Avoid crash if error
       if (pointsCounter > 200) {
-        console,
-        log("Passed 100 points")
-        break
-      }
-
-      // Avoid crash if error
-      if (whileLoopCounter > 300) {
+        console.log("Passed 100 points")
         break
       }
 
@@ -513,7 +507,6 @@ function updateScorecards() {
       console.log(`Gah, it's not working!`)
     }
   }
-  console.log("Updated the scorecards")
   request.send()
 }
 
