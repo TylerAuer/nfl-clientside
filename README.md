@@ -30,10 +30,25 @@ I used two different NFL APIs to build this site:
     -   *5* (I haven't seen a game in OT to test this yet)
     -   Final
 
-## Possible Future Features
--   Change gamecard styles depending on the score / result
+## Roadmap
+
+### Very Likely
+-   Rewrite code for game cards so that they
+    - Display in a meaninful order
+    - Can be refreshed without page jumps
+    - Show more details
+        - possession
+        - down and distance
 -   Bump chart showing rank over time
 -   Smoother refreshing of standings and cards
+-   Error messages in case APIs go down
+
+### Maybe
+-   NFL schedule showing who is rooting for whom
+-   Integrate live win probabilities and/or ELO with game cards
+-   Simulator of all games left to predict winner
+-   Determine max and min points possible for a given owner based on schedule
+-   Version of the page showing the league at a given point, loaded from static saved API files. Purpose of this is so others can see what it looks like as part of a portfolio
 
 ## Learning Goals
 
