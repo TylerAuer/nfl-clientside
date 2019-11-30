@@ -5,8 +5,8 @@
 // (1) For team wins, losses, and other details:
 // http://www.nfl.com/feeds-rs/standings/2019/REG
 
-// (2) For current week's standings
-// http://www.nfl.com/liveupdate/scores/scores.json
+// (2) For current week's scores and games
+// https://feeds.nfl.com/feeds-rs/scores.json
 
 // ###############
 // Data Structures
@@ -380,139 +380,200 @@ function updateStandings() {
 
 function updateScorecards() {
 
-  // Sets constant app to the first div inside the body
-  const gameCardContainer = document.getElementById('gameCardContainer')
-  gameCardContainer.innerHTML = "" // Empties the div, needed for refresh
-
   var request = new XMLHttpRequest()
-
-  // Actual JSON file to request
-  request.open('GET', 'http://www.nfl.com/liveupdate/scores/scores.json', true)
-
-  // Local JSON file for testing when flying without wifi
-  // request.open('GET', 'http://localhost:8888/APIs/json.json', true)
-
+  request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
   request.onload = function () {
-    // Begin accessing JSON data here
-    // Builds new elements as it goes
-    var data = JSON.parse(this.response)
 
+    // Div holding all of the game cards
     if (request.status >= 200 && request.status < 400) {
 
-      for (game in data) {
+      var data = JSON.parse(this.response)
 
-        var gameId = game // holds iterator index for loop
+      const gameCardContainer = document.getElementById('gameCardContainer')
 
-        // Current quarter, can be null, 1, 2, 3, 4, ??
-        const qtr = data[gameId]["qtr"]
+      weekNumber = data.week
 
-        // Card element
-        const gameCard = document.createElement('div')
-        gameCard.className += " card gameCard shadow"
+      //// For loop each game
+      for (game of data.gameScores) {
+        var gameId = game.gameSchedule.gameId
+        var gameDate = game.gameSchedule.gameDate
+        var gameStartTime = game.gameSchedule.gameTimeEastern
+        var location = game.gameSchedule.siteFullname
 
-        // Main body of card (everything except footer)
-        const gameCardBody = document.createElement('div')
-        gameCardBody.className += ' card-body'
+        var awayTeam = game.gameSchedule.visitorTeamAbbr
+        var awayTeamWinsOwner = teams[awayTeam][0]
+        var awayTeamLossesOwner = teams[awayTeam][1]
 
-        // Looks up score
-        // Replaces null values with 0 when games have not begun
-        var awayScore, homeScore
-        if (qtr == null || qtr == "Pregame") {
-          awayScore = "0"
-          homeScore = "0"
-        } else {
-          awayScore = data[gameId]["away"]["score"]["T"]
-          homeScore = data[gameId]["home"]["score"]["T"]
+        var homeTeam = game.gameSchedule.homeTeamAbbr
+        var homeTeamWinsOwner = teams[awayTeam][0]
+        var homeTeamLossesOwner = teams[awayTeam][1]
+
+        // Checks if games have not begun which return Null for score nodes
+        if (game.score != null) {
+          var gameState = game.score.phase // Null, ..., Final
+          var qtrTimeLeft = game.score.time
+          var posTeam = game.score.possessionTeamAbbr
+          var down = game.score.down
+          var distance = game.score.yardsToGo
+          var yardline = game.score.yardline
+          var yardlineSide = game.score.yardlineSide
+
+          var awayTeamScore = game.score.visitorTeamScore.pointTotal
+          var awayTeamTOLeft = game.score.visitorTeamScore.timeoutsRemaining
+
+          var homeTeamScore = game.score.homeTeamScore.pointTotal
+          var homeTeamTOLeft = game.score.homeTeamScore.timeoutsRemaining
         }
 
-
-        var awayWinsOwner = ""
-        var awayLossesOwner = ""
-        var homeWinsOwner = ""
-        var homeLossesOwner = ""
-
-        // Looks up team owners, fills in owners if they exist
-        if (teams[data[gameId]["away"]["abbr"]][0] != null) {
-          awayWinsOwner = "<b>W: </b>" + teams[data[gameId]["away"]["abbr"]][0] + " "
-        }
-        if (teams[data[gameId]["away"]["abbr"]][1] != null) {
-          awayLossesOwner = "<b>L: </b>" + teams[data[gameId]["away"]["abbr"]][1]
-        }
-        if (teams[data[gameId]["home"]["abbr"]][0] != null) {
-          homeWinsOwner = "<b>W: </b>" + teams[data[gameId]["home"]["abbr"]][0] + " "
-        }
-        if (teams[data[gameId]["home"]["abbr"]][1] != null) {
-          homeLossesOwner = "<b>L: </b>" + teams[data[gameId]["home"]["abbr"]][1]
-        }
-
-        // Away team (top). Placed in gameCard <div>
-        const awayTeamInfo = document.createElement('div')
-        awayTeamInfo.className += ' gameCardScore'
-        awayTeamInfo.innerHTML = (
-          "<h4>" + data[gameId]["away"]["abbr"] + " " + +awayScore + " </h4>" +
-          "<span class='gameCardOwner'>" + awayWinsOwner + awayLossesOwner + "</span>"
-        )
-
-        // Home team (bottom). Placed in gameCard <div>
-        const homeTeamInfo = document.createElement('div')
-        homeTeamInfo.className += ' gameCardScore'
-        homeTeamInfo.innerHTML = (
-          "<h4>" + data[gameId]["home"]["abbr"] + " " + +homeScore + " </h4>" +
-          "<span class='gameCardOwner'>" + homeWinsOwner + homeLossesOwner + "</span>"
-        )
-
-        // Footer time details
-        const details = document.createElement('div')
-        details.className += ' gameCardDetails card-footer text-right'
-
-        // If game has not begun
-        if (qtr == null || qtr == "Pregame") {
-          details.innerHTML = ("<i>Pregame</i>")
-          details.className += " gameCardFooterPregame"
-
-          // If game is in halftime
-        } else if (qtr == "Halftime") {
-          details.innerHTML = (qtr)
-          gameCard.className += " border-secondary"
-          details.className += " gameCardFooterInProgress"
-
-          // If game in progress
-        } else if (qtr != "Final") {
-          details.innerHTML = (data[gameId]["clock"] + " | " + qtr)
-          gameCard.className += " border-secondary"
-          details.className += " gameCardFooterInProgress"
+        // console.log(awayTeam + awayTeamScore + awayTeamTOLeft)
 
 
-          // If game has ended
-        } else {
-          details.innerHTML = ("<i>Game Over</i>")
-          gameCard.className += " border-dark"
-          details.className += " gameCardFooterGameOver"
-        }
-
-        // Adds info to gameCardBody
-        gameCardBody.appendChild(awayTeamInfo)
-        gameCardBody.appendChild(homeTeamInfo)
-
-        // Adds gameCardBody to gameCard
-        gameCard.appendChild(gameCardBody)
-        gameCard.appendChild(details)
-
-        // Add .gameCard to .gameCardContainer
-        gameCardContainer.appendChild(gameCard)
       }
 
+      ////// If div (card) does not exist, make one with game ID from JSON as //#id
+      ////// Fill data in card with:
+      //////// Score
+      //////// Owners
+      //////// State
+      //////// If pregame:
+      ////////// Start time, date, location
+      //////// If live:
+      ////////// Posession
+      ////////// Down and distance
+      ////////// QTR
+      ////////// Time Left
+      //////// If over:
+      ////////// Style winners and lossers and cards
     } else {
-      // Error message for failed request
-      console.log(`Gah, it's not working!`)
+
+      console.log("API request of https://feeds.nfl.com/feeds-rs/scores.json failed.")
+
     }
   }
+  // Closes the API request
   request.send()
 }
 
+//   request.onload = function () {
+//     // Begin accessing JSON data here
+//     // Builds new elements as it goes
+//     var data = JSON.parse(this.response)
+
+//     
+
+//       for (game in data) {
+
+//         var gameId = game // holds iterator index for loop
+
+//         // Current quarter, can be null, 1, 2, 3, 4, ??
+//         const qtr = data[gameId]["qtr"]
+
+//         // Card element
+//         const gameCard = document.createElement('div')
+//         gameCard.className += " card gameCard shadow"
+
+//         // Main body of card (everything except footer)
+//         const gameCardBody = document.createElement('div')
+//         gameCardBody.className += ' card-body'
+
+//         // Looks up score
+//         // Replaces null values with 0 when games have not begun
+//         var awayScore, homeScore
+//         if (qtr == null || qtr == "Pregame") {
+//           awayScore = "0"
+//           homeScore = "0"
+//         } else {
+//           awayScore = data[gameId]["away"]["score"]["T"]
+//           homeScore = data[gameId]["home"]["score"]["T"]
+//         }
+
+
+//         var awayWinsOwner = ""
+//         var awayLossesOwner = ""
+//         var homeWinsOwner = ""
+//         var homeLossesOwner = ""
+
+//         // Looks up team owners, fills in owners if they exist
+//         if (teams[data[gameId]["away"]["abbr"]][0] != null) {
+//           awayWinsOwner = "<b>W: </b>" + teams[data[gameId]["away"]["abbr"]][0] + " "
+//         }
+//         if (teams[data[gameId]["away"]["abbr"]][1] != null) {
+//           awayLossesOwner = "<b>L: </b>" + teams[data[gameId]["away"]["abbr"]][1]
+//         }
+//         if (teams[data[gameId]["home"]["abbr"]][0] != null) {
+//           homeWinsOwner = "<b>W: </b>" + teams[data[gameId]["home"]["abbr"]][0] + " "
+//         }
+//         if (teams[data[gameId]["home"]["abbr"]][1] != null) {
+//           homeLossesOwner = "<b>L: </b>" + teams[data[gameId]["home"]["abbr"]][1]
+//         }
+
+//         // Away team (top). Placed in gameCard <div>
+//         const awayTeamInfo = document.createElement('div')
+//         awayTeamInfo.className += ' gameCardScore'
+//         awayTeamInfo.innerHTML = (
+//           "<h4>" + data[gameId]["away"]["abbr"] + " " + +awayScore + " </h4>" +
+//           "<span class='gameCardOwner'>" + awayWinsOwner + awayLossesOwner + "</span>"
+//         )
+
+//         // Home team (bottom). Placed in gameCard <div>
+//         const homeTeamInfo = document.createElement('div')
+//         homeTeamInfo.className += ' gameCardScore'
+//         homeTeamInfo.innerHTML = (
+//           "<h4>" + data[gameId]["home"]["abbr"] + " " + +homeScore + " </h4>" +
+//           "<span class='gameCardOwner'>" + homeWinsOwner + homeLossesOwner + "</span>"
+//         )
+
+//         // Footer time details
+//         const details = document.createElement('div')
+//         details.className += ' gameCardDetails card-footer text-right'
+
+//         // If game has not begun
+//         if (qtr == null || qtr == "Pregame") {
+//           details.innerHTML = ("<i>Pregame</i>")
+//           details.className += " gameCardFooterPregame"
+
+//           // If game is in halftime
+//         } else if (qtr == "Halftime") {
+//           details.innerHTML = (qtr)
+//           gameCard.className += " border-secondary"
+//           details.className += " gameCardFooterInProgress"
+
+//           // If game in progress
+//         } else if (qtr != "Final") {
+//           details.innerHTML = (data[gameId]["clock"] + " | " + qtr)
+//           gameCard.className += " border-secondary"
+//           details.className += " gameCardFooterInProgress"
+
+
+//           // If game has ended
+//         } else {
+//           details.innerHTML = ("<i>Game Over</i>")
+//           gameCard.className += " border-dark"
+//           details.className += " gameCardFooterGameOver"
+//         }
+
+//         // Adds info to gameCardBody
+//         gameCardBody.appendChild(awayTeamInfo)
+//         gameCardBody.appendChild(homeTeamInfo)
+
+//         // Adds gameCardBody to gameCard
+//         gameCard.appendChild(gameCardBody)
+//         gameCard.appendChild(details)
+
+//         // Add .gameCard to .gameCardContainer
+//         gameCardContainer.appendChild(gameCard)
+//       }
+
+//     } else {
+//       // Error message for failed request
+//       console.log(`Gah, it's not working!`)
+//     }
+//   }
+// }
+
 // Loads the scorecards and then refreshes every 20 seconds
 updateScorecards() // Loads the scorecards initially
-window.setInterval(updateScorecards, 20000) // Updates every 20 seconds
+// window.setInterval(updateScorecards, 20000) // Updates every 20 seconds
 
 
 // Runs once everything else has loaded and run
