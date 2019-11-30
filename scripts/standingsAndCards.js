@@ -401,12 +401,23 @@ function updateScorecards() {
         var location = game.gameSchedule.siteFullname
 
         var awayTeam = game.gameSchedule.visitorTeamAbbr
+        // Fix Jac vs Jax discrepency
+        if (awayTeam == "Jax") {
+          awayTeam = "Jac"
+        }
+
         var awayTeamWinsOwner = teams[awayTeam][0]
         var awayTeamLossesOwner = teams[awayTeam][1]
+        var awayTeamScore = 0 // For games that have not begun 
 
         var homeTeam = game.gameSchedule.homeTeamAbbr
+        // Fix Jac vs Jax discrepency
+        if (homeTeam == "Jax") {
+          homeTeam = "Jac"
+        }
         var homeTeamWinsOwner = teams[awayTeam][0]
         var homeTeamLossesOwner = teams[awayTeam][1]
+        var homeTeamScore = 0 // For games that have not begun
 
         // Checks if games have not begun which return Null for score nodes
         if (game.score != null) {
@@ -425,8 +436,84 @@ function updateScorecards() {
           var homeTeamTOLeft = game.score.homeTeamScore.timeoutsRemaining
         }
 
-        // console.log(awayTeam + awayTeamScore + awayTeamTOLeft)
+        // Build Card Element
+        var gameCard
 
+        // Makes new gameCard unless one exists
+        if (document.getElementById(gameId) == null) {
+          // If making a new gameCard
+          gameCard = document.createElement('div')
+          gameCard.id = gameId
+          gameCard.className += " card gameCard shadow"
+        } else {
+          // If gameCard already exists
+          gameCard = document.getElementById(gameId)
+          gameCard.innerHTML = ""
+        }
+
+
+        // Main body of card (everything except footer)
+        const gameCardBody = document.createElement('div')
+        gameCardBody.className += ' card-body'
+
+        // Away team (top). Placed in gameCard <div>
+        const awayTeamInfo = document.createElement('div')
+        awayTeamInfo.className += ' gameCardScore'
+
+        // HTML for Away Team
+        var awayOwnersString = "<span class='gameCardOwner'>"
+        // Adds Wins owner if there is one
+        if (awayTeamWinsOwner != null) {
+          awayOwnersString += "<b>W: </b>" + awayTeamWinsOwner + " "
+        }
+        if (awayTeamLossesOwner != null) {
+          awayOwnersString += "<b>L: </b>" + awayTeamLossesOwner
+        }
+        awayOwnersString += "</span>"
+
+        var awayScoreHTML = "<h4>" + awayTeam + " " + awayTeamScore
+        // Adds possesion marker
+        if (posTeam == awayTeam) {
+          awayScoreHTML += " *" // Placeholder for possession icon
+        }
+        awayScoreHTML += "</h4>"
+        awayTeamScore += awayOwnersString
+        awayTeamInfo.innerHTML = awayScoreHTML
+
+        // Home team (top). Placed in gameCard <div>
+        const homeTeamInfo = document.createElement('div')
+        homeTeamInfo.className += ' gameCardScore'
+
+        // HTML for Home Team
+        var homeOwnersString = "<span class='gameCardOwner'>"
+        // Adds Wins owner if there is one
+        if (homeTeamWinsOwner != null) {
+          homeOwnersString += "<b>W: </b>" + homeTeamWinsOwner + " "
+        }
+        if (homeTeamLossesOwner != null) {
+          homeOwnersString += "<b>L: </b>" + homeTeamLossesOwner
+        }
+        homeOwnersString += "</span>"
+
+        var homeScoreHTML = "<h4>" + homeTeam + " " + homeTeamScore
+        // Adds possesion marker
+        if (posTeam == homeTeam) {
+          homeScoreHTML += " *" // Placeholder for possession icon
+        }
+        homeScoreHTML += "</h4>"
+        homeTeamScore += homeOwnersString
+        homeTeamInfo.innerHTML = homeScoreHTML
+
+        // Adds info to gameCardBody
+        gameCardBody.appendChild(awayTeamInfo)
+        gameCardBody.appendChild(homeTeamInfo)
+
+        // Adds gameCardBody to gameCard
+        gameCard.appendChild(gameCardBody)
+        //        gameCard.appendChild(details)
+
+        // Add .gameCard to .gameCardContainer
+        gameCardContainer.appendChild(gameCard)
 
       }
 
@@ -437,13 +524,16 @@ function updateScorecards() {
       //////// State
       //////// If pregame:
       ////////// Start time, date, location
+      ////////// Set order 1 (https://www.w3schools.com/jsref/prop_style_order.asp)
       //////// If live:
       ////////// Posession
       ////////// Down and distance
       ////////// QTR
       ////////// Time Left
+      ////////// Set order 0 (https://www.w3schools.com/jsref/prop_style_order.asp)
       //////// If over:
       ////////// Style winners and lossers and cards
+      ////////// Set order 2 (https://www.w3schools.com/jsref/prop_style_order.asp)
     } else {
 
       console.log("API request of https://feeds.nfl.com/feeds-rs/scores.json failed.")
@@ -573,7 +663,7 @@ function updateScorecards() {
 
 // Loads the scorecards and then refreshes every 20 seconds
 updateScorecards() // Loads the scorecards initially
-// window.setInterval(updateScorecards, 20000) // Updates every 20 seconds
+window.setInterval(updateScorecards, 1000) // Updates every 20 seconds
 
 
 // Runs once everything else has loaded and run
