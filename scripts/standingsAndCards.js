@@ -401,13 +401,18 @@ function updateScorecards() {
       const gameCardContainer = document.getElementById('gameCardContainer')
 
       weekNumber = data.week
+      var gameCardsDivHeader = document.getElementById("gameCardTitle")
+      gameCardsDivHeader.innerHTML = "Week " + weekNumber + " Games"
 
       //// For loop each game
       for (game of data.gameScores) {
         var gameId = game.gameSchedule.gameId
         var gameDate = game.gameSchedule.gameDate
         var gameStartTime = game.gameSchedule.gameTimeEastern
-        var location = game.gameSchedule.siteFullname
+        var gameLocation = game.gameSchedule.siteFullname
+        var d = new Date(gameDate)
+        dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        gameDay = dayNames[d.getDay()]
 
         var awayTeam = game.gameSchedule.visitorTeamAbbr
         // Fix Jac vs Jax discrepency
@@ -428,11 +433,15 @@ function updateScorecards() {
         var homeTeamLossesOwner = teams[awayTeam][1]
         var homeTeamScore = 0 // For games that have not begun
 
+        var gameWinner = null // Can be use to check if a game is over 
+
         // Checks if games have not begun which return Null for score nodes
         if (game.score != null) {
-          var gameState = game.score.phase // Null, ..., Final
+          var gameState = game.score.phaseDescription // Null, ..., Final
           var qtrTimeLeft = game.score.time
-          var posTeam = game.score.possessionTeamAbbr
+          if (gameState != "FINAL") {
+            var posTeam = game.score.possessionTeamAbbr
+          }
           var down = game.score.down
           var distance = game.score.yardsToGo
           var yardline = game.score.yardline
@@ -443,6 +452,17 @@ function updateScorecards() {
 
           var homeTeamScore = game.score.homeTeamScore.pointTotal
           var homeTeamTOLeft = game.score.homeTeamScore.timeoutsRemaining
+
+          // Determines winner if game is over
+          if (gameState == "FINAL") {
+            if (awayTeamScore == homeTeamScore) {
+              gameWinner = "Tie"
+            } else if (awayTeamScore > homeTeamScore) {
+              gameWinner = awayTeam
+            } else {
+              gameWinner = homeTeam
+            }
+          }
         }
 
         // Build Card Element
@@ -460,58 +480,143 @@ function updateScorecards() {
           gameCard.innerHTML = ""
         }
 
-
         // Main body of card (everything except footer)
         const gameCardBody = document.createElement('div')
         gameCardBody.className += ' card-body'
 
-        // Away team (top). Placed in gameCard <div>
+        // Away team (top). Placed in gameCard <div>. Ex:
+        // JAX 24 *
+        // W: Tyler L: Dan
         const awayTeamInfo = document.createElement('div')
         awayTeamInfo.className += ' gameCardScore'
 
-        // HTML for Away Team
-        var awayOwnersString = "<span class='gameCardOwner'>"
-        // Adds Wins owner if there is one
-        if (awayTeamWinsOwner != null) {
-          awayOwnersString += "<b>W: </b>" + awayTeamWinsOwner + " "
-        }
-        if (awayTeamLossesOwner != null) {
-          awayOwnersString += "<b>L: </b>" + awayTeamLossesOwner
-        }
-        awayOwnersString += "</span>"
+        var awayTeamLine2HTML = ""
 
-        var awayScoreHTML = "<h4>" + awayTeam + " " + awayTeamScore
-        // Adds possesion marker
+        if (gameWinner == awayTeam) {
+
+          awayTeamLine1HTML = wrapInTag(awayTeam + " " + awayTeamScore, "span", 'class="gameCardAwayTeamHappy";')
+
+          if (awayTeamWinsOwner != null) {
+            awayTeamLine2HTML += wrapInTag("<b>W: </b>" + awayTeamWinsOwner, "span", 'class="gameCardOwnerHappy";')
+            awayTeamLine2HTML += " "
+          }
+          if (awayTeamLossesOwner != null) {
+            awayTeamLine2HTML += wrapInTag("<b>L: </b>" + awayTeamLossesOwner, "span", 'class="gameCardOwnerSad";')
+          }
+        } else if (gameWinner == homeTeam) {
+
+          awayTeamLine1HTML = wrapInTag(awayTeam + " " + awayTeamScore, "span", 'class="gameCardAwayTeamSad";')
+
+          if (awayTeamWinsOwner != null) {
+            awayTeamLine2HTML += wrapInTag("<b>W: </b>" + awayTeamWinsOwner, "span", 'class="gameCardOwnerSad";')
+            awayTeamLine2HTML += " "
+          }
+          if (awayTeamLossesOwner != null) {
+            awayTeamLine2HTML += wrapInTag("<b>L: </b>" + awayTeamLossesOwner, "span", 'class="gameCardOwnerHappy";')
+          }
+        } else {
+          if (homeTeamWinsOwner != null) {
+            awayTeamLine2HTML += "<b>W: </b>" + homeTeamWinsOwner + " "
+          }
+          if (homeTeamLossesOwner != null) {
+            awayTeamLine2HTML += "<b>L: </b>" + homeTeamLossesOwner
+          }
+        }
+
+        var awayScoreHTML = wrapInTag(awayTeamScore, "span", 'class="gameCardAwayTeamScore";')
+
+        // Adds possesion marker, if neeeded
         if (posTeam == awayTeam) {
-          awayScoreHTML += " *" // Placeholder for possession icon
+          awayScoreHTML += " *" // Asterix is placeholder for possession icon
         }
-        awayScoreHTML += "</h4>"
-        awayTeamScore += awayOwnersString
-        awayTeamInfo.innerHTML = awayScoreHTML
 
-        // Home team (top). Placed in gameCard <div>
+        var awayTeamLine1HTML = wrapInTag(awayTeamLine1HTML, "h3", 'class="gameCardAwayTeam";')
+        awayTeamLine2HTML = wrapInTag(awayTeamLine2HTML, "span", 'class="gameCardOwner";')
+        awayTeamInfo.innerHTML = awayTeamLine1HTML + "<br>" + awayTeamLine2HTML
+
+
+        // Home team (top). Placed in gameCard <div>. Ex:
+        // JAX 24 *
+        // W: Tyler L: Dan
         const homeTeamInfo = document.createElement('div')
         homeTeamInfo.className += ' gameCardScore'
 
-        // HTML for Home Team
-        var homeOwnersString = "<span class='gameCardOwner'>"
-        // Adds Wins owner if there is one
-        if (homeTeamWinsOwner != null) {
-          homeOwnersString += "<b>W: </b>" + homeTeamWinsOwner + " "
-        }
-        if (homeTeamLossesOwner != null) {
-          homeOwnersString += "<b>L: </b>" + homeTeamLossesOwner
-        }
-        homeOwnersString += "</span>"
+        var homeTeamLine2HTML = ""
 
-        var homeScoreHTML = "<h4>" + homeTeam + " " + homeTeamScore
-        // Adds possesion marker
-        if (posTeam == homeTeam) {
-          homeScoreHTML += " *" // Placeholder for possession icon
+        if (gameWinner == homeTeam) {
+
+          homeTeamLine1HTML = wrapInTag(homeTeam + " " + homeTeamScore, "span", 'class="gameCardHomeTeamHappy";')
+
+          if (homeTeamWinsOwner != null) {
+            homeTeamLine2HTML += wrapInTag("<b>W: </b>" + homeTeamWinsOwner, "span", 'class="gameCardOwnerHappy";')
+            homeTeamLine2HTML += " "
+          }
+          if (homeTeamLossesOwner != null) {
+            homeTeamLine2HTML += wrapInTag("<b>L: </b>" + homeTeamLossesOwner, "span", 'class="gameCardOwnerSad";')
+          }
+        } else if (gameWinner == awayTeam) {
+
+          homeTeamLine1HTML = wrapInTag(homeTeam + " " + homeTeamScore, "span", 'class="gameCardHomeTeamSad";')
+
+          if (homeTeamWinsOwner != null) {
+            homeTeamLine2HTML += wrapInTag("<b>W: </b>" + homeTeamWinsOwner, "span", 'class="gameCardOwnerSad";')
+            homeTeamLine2HTML += " "
+          }
+          if (homeTeamLossesOwner != null) {
+            homeTeamLine2HTML += wrapInTag("<b>L: </b>" + homeTeamLossesOwner, "span", 'class="gameCardOwnerHappy";')
+          }
+        } else {
+          if (homeTeamWinsOwner != null) {
+            homeTeamLine2HTML += "<b>W: </b>" + homeTeamWinsOwner + " "
+          }
+          if (homeTeamLossesOwner != null) {
+            homeTeamLine2HTML += "<b>L: </b>" + homeTeamLossesOwner
+          }
         }
-        homeScoreHTML += "</h4>"
-        homeTeamScore += homeOwnersString
-        homeTeamInfo.innerHTML = homeScoreHTML
+
+        var homeScoreHTML = wrapInTag(homeTeamScore, "span", 'class="gameCardHomeTeamScore";')
+
+        // Adds possesion marker, if neeeded
+        if (posTeam == homeTeam) {
+          homeScoreHTML += " *" // Asterix is placeholder for possession icon
+        }
+
+        var homeTeamLine1HTML = wrapInTag(homeTeamLine1HTML, "h3", 'class="gameCardHomeTeam";')
+        homeTeamLine2HTML = wrapInTag(homeTeamLine2HTML, "span", 'class="gameCardOwner";')
+        homeTeamInfo.innerHTML = homeTeamLine1HTML + "<br>" + homeTeamLine2HTML
+
+
+        // Footer time details
+        const details = document.createElement('div')
+        details.className += ' gameCardDetails card-footer text-right'
+
+        // Game has not begun
+        if (gameState == null) {
+
+          details.innerHTML += (
+            // Game start time is in ARMY time right now, need to fix
+            wrapInTag(gameDay + " " + gameStartTime, "span", 'class="gameCardDetailsTime";') + "<br>" +
+            wrapInTag(gameLocation, "span", 'class="gameCardDetailsLocation";')
+          )
+
+          details.className += " gameCardFooterPregame"
+
+          // Game is over
+        } else if (gameState == "FINAL") {
+
+          details.innerHTML = "Final<br>" + wrapInTag(gameDay + " " + gameLocation, "span", 'class="gameCardDetailsTime";')
+          details.className += " gameCardFooterGameOver"
+
+        } else if (gameState == "HALFTIME") {
+
+
+
+        } else {
+
+          // Down and distance
+          // Time Left | QTR
+
+        }
 
         // Adds info to gameCardBody
         gameCardBody.appendChild(awayTeamInfo)
@@ -519,30 +624,13 @@ function updateScorecards() {
 
         // Adds gameCardBody to gameCard
         gameCard.appendChild(gameCardBody)
-        //        gameCard.appendChild(details)
+        gameCard.appendChild(details)
 
         // Add .gameCard to .gameCardContainer
         gameCardContainer.appendChild(gameCard)
 
       }
 
-      ////// If div (card) does not exist, make one with game ID from JSON as //#id
-      ////// Fill data in card with:
-      //////// Score
-      //////// Owners
-      //////// State
-      //////// If pregame:
-      ////////// Start time, date, location
-      ////////// Set order 1 (https://www.w3schools.com/jsref/prop_style_order.asp)
-      //////// If live:
-      ////////// Posession
-      ////////// Down and distance
-      ////////// QTR
-      ////////// Time Left
-      ////////// Set order 0 (https://www.w3schools.com/jsref/prop_style_order.asp)
-      //////// If over:
-      ////////// Style winners and lossers and cards
-      ////////// Set order 2 (https://www.w3schools.com/jsref/prop_style_order.asp)
     } else {
 
       console.log("API request of https://feeds.nfl.com/feeds-rs/scores.json failed.")
@@ -553,126 +641,9 @@ function updateScorecards() {
   request.send()
 }
 
-//   request.onload = function () {
-//     // Begin accessing JSON data here
-//     // Builds new elements as it goes
-//     var data = JSON.parse(this.response)
-
-//     
-
-//       for (game in data) {
-
-//         var gameId = game // holds iterator index for loop
-
-//         // Current quarter, can be null, 1, 2, 3, 4, ??
-//         const qtr = data[gameId]["qtr"]
-
-//         // Card element
-//         const gameCard = document.createElement('div')
-//         gameCard.className += " card gameCard shadow"
-
-//         // Main body of card (everything except footer)
-//         const gameCardBody = document.createElement('div')
-//         gameCardBody.className += ' card-body'
-
-//         // Looks up score
-//         // Replaces null values with 0 when games have not begun
-//         var awayScore, homeScore
-//         if (qtr == null || qtr == "Pregame") {
-//           awayScore = "0"
-//           homeScore = "0"
-//         } else {
-//           awayScore = data[gameId]["away"]["score"]["T"]
-//           homeScore = data[gameId]["home"]["score"]["T"]
-//         }
-
-
-//         var awayWinsOwner = ""
-//         var awayLossesOwner = ""
-//         var homeWinsOwner = ""
-//         var homeLossesOwner = ""
-
-//         // Looks up team owners, fills in owners if they exist
-//         if (teams[data[gameId]["away"]["abbr"]][0] != null) {
-//           awayWinsOwner = "<b>W: </b>" + teams[data[gameId]["away"]["abbr"]][0] + " "
-//         }
-//         if (teams[data[gameId]["away"]["abbr"]][1] != null) {
-//           awayLossesOwner = "<b>L: </b>" + teams[data[gameId]["away"]["abbr"]][1]
-//         }
-//         if (teams[data[gameId]["home"]["abbr"]][0] != null) {
-//           homeWinsOwner = "<b>W: </b>" + teams[data[gameId]["home"]["abbr"]][0] + " "
-//         }
-//         if (teams[data[gameId]["home"]["abbr"]][1] != null) {
-//           homeLossesOwner = "<b>L: </b>" + teams[data[gameId]["home"]["abbr"]][1]
-//         }
-
-//         // Away team (top). Placed in gameCard <div>
-//         const awayTeamInfo = document.createElement('div')
-//         awayTeamInfo.className += ' gameCardScore'
-//         awayTeamInfo.innerHTML = (
-//           "<h4>" + data[gameId]["away"]["abbr"] + " " + +awayScore + " </h4>" +
-//           "<span class='gameCardOwner'>" + awayWinsOwner + awayLossesOwner + "</span>"
-//         )
-
-//         // Home team (bottom). Placed in gameCard <div>
-//         const homeTeamInfo = document.createElement('div')
-//         homeTeamInfo.className += ' gameCardScore'
-//         homeTeamInfo.innerHTML = (
-//           "<h4>" + data[gameId]["home"]["abbr"] + " " + +homeScore + " </h4>" +
-//           "<span class='gameCardOwner'>" + homeWinsOwner + homeLossesOwner + "</span>"
-//         )
-
-//         // Footer time details
-//         const details = document.createElement('div')
-//         details.className += ' gameCardDetails card-footer text-right'
-
-//         // If game has not begun
-//         if (qtr == null || qtr == "Pregame") {
-//           details.innerHTML = ("<i>Pregame</i>")
-//           details.className += " gameCardFooterPregame"
-
-//           // If game is in halftime
-//         } else if (qtr == "Halftime") {
-//           details.innerHTML = (qtr)
-//           gameCard.className += " border-secondary"
-//           details.className += " gameCardFooterInProgress"
-
-//           // If game in progress
-//         } else if (qtr != "Final") {
-//           details.innerHTML = (data[gameId]["clock"] + " | " + qtr)
-//           gameCard.className += " border-secondary"
-//           details.className += " gameCardFooterInProgress"
-
-
-//           // If game has ended
-//         } else {
-//           details.innerHTML = ("<i>Game Over</i>")
-//           gameCard.className += " border-dark"
-//           details.className += " gameCardFooterGameOver"
-//         }
-
-//         // Adds info to gameCardBody
-//         gameCardBody.appendChild(awayTeamInfo)
-//         gameCardBody.appendChild(homeTeamInfo)
-
-//         // Adds gameCardBody to gameCard
-//         gameCard.appendChild(gameCardBody)
-//         gameCard.appendChild(details)
-
-//         // Add .gameCard to .gameCardContainer
-//         gameCardContainer.appendChild(gameCard)
-//       }
-
-//     } else {
-//       // Error message for failed request
-//       console.log(`Gah, it's not working!`)
-//     }
-//   }
-// }
-
 // Loads the scorecards and then refreshes every 20 seconds
 updateScorecards() // Loads the scorecards initially
-window.setInterval(updateScorecards, 1000) // Updates every 20 seconds
+window.setInterval(updateScorecards, 20000) // Updates every 20 seconds
 
 
 // Runs once everything else has loaded and run

@@ -1,1 +1,632 @@
-{"2019112100":{"home":{"score":{"1":0,"2":10,"3":3,"4":7,"5":0,"T":20},"abbr":"HOU","to":1},"away":{"score":{"1":0,"2":10,"3":7,"4":0,"5":0,"T":17},"abbr":"IND","to":0},"bp":17,"down":0,"togo":0,"clock":"00:05","posteam":"IND","note":null,"redzone":false,"stadium":"NRG Stadium","media":{"radio":{"home":null,"away":null},"tv":"FOX","sat":null,"sathd":null},"yl":"","qtr":"Final"},"2019112400":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"ATL","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"TB","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Mercedes-Benz Stadium","media":{"radio":{"home":null,"away":null},"tv":"FOX","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112401":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"BUF","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"DEN","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"New Era Field","media":{"radio":{"home":null,"away":null},"tv":"CBS","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112402":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"CHI","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"NYG","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Soldier Field","media":{"radio":{"home":null,"away":null},"tv":"FOX","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112403":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"CIN","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"PIT","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Paul Brown Stadium","media":{"radio":{"home":null,"away":null},"tv":"CBS","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112404":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"CLE","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"MIA","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"FirstEnergy Stadium","media":{"radio":{"home":null,"away":null},"tv":"FOX","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112405":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"NO","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"CAR","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Mercedes-Benz Superdome","media":{"radio":{"home":null,"away":null},"tv":"CBS","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112406":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"NYJ","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"OAK","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"MetLife Stadium","media":{"radio":{"home":null,"away":null},"tv":"CBS","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112407":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"WAS","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"DET","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"FedExField","media":{"radio":{"home":null,"away":null},"tv":"FOX","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112411":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"PHI","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"SEA","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Lincoln Financial Field","media":{"radio":{"home":null,"away":null},"tv":"FOX","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112408":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"TEN","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"JAC","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Nissan Stadium","media":{"radio":{"home":null,"away":null},"tv":"CBS","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112409":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"NE","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"DAL","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Gillette Stadium","media":{"radio":{"home":null,"away":null},"tv":"FOX","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112410":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"SF","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"GB","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Levi's® Stadium","media":{"radio":{"home":null,"away":null},"tv":"NBC","sat":null,"sathd":null},"yl":null,"qtr":null},"2019112500":{"home":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"LA","to":null},"away":{"score":{"1":null,"2":null,"3":null,"4":null,"5":null,"T":null},"abbr":"BAL","to":null},"bp":0,"down":null,"togo":null,"clock":null,"posteam":null,"note":null,"redzone":null,"stadium":"Los Angeles Memorial Coliseum","media":{"radio":{"home":null,"away":null},"tv":"ESPN","sat":null,"sathd":null},"yl":null,"qtr":null}}
+{
+    "2019112100": {
+        "home": {
+            "score": {
+                "1": 0,
+                "2": 10,
+                "3": 3,
+                "4": 7,
+                "5": 0,
+                "T": 20
+            },
+            "abbr": "HOU",
+            "to": 1
+        },
+        "away": {
+            "score": {
+                "1": 0,
+                "2": 10,
+                "3": 7,
+                "4": 0,
+                "5": 0,
+                "T": 17
+            },
+            "abbr": "IND",
+            "to": 0
+        },
+        "bp": 17,
+        "down": 0,
+        "togo": 0,
+        "clock": "00:05",
+        "posteam": "IND",
+        "note": null,
+        "redzone": false,
+        "stadium": "NRG Stadium",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "FOX",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": "",
+        "qtr": "Final"
+    },
+    "2019112400": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "ATL",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "TB",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Mercedes-Benz Stadium",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "FOX",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112401": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "BUF",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "DEN",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "New Era Field",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "CBS",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112402": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "CHI",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "NYG",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Soldier Field",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "FOX",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112403": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "CIN",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "PIT",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Paul Brown Stadium",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "CBS",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112404": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "CLE",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "MIA",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "FirstEnergy Stadium",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "FOX",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112405": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "NO",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "CAR",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Mercedes-Benz Superdome",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "CBS",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112406": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "NYJ",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "OAK",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "MetLife Stadium",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "CBS",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112407": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "WAS",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "DET",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "FedExField",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "FOX",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112411": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "PHI",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "SEA",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Lincoln Financial Field",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "FOX",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112408": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "TEN",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "JAC",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Nissan Stadium",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "CBS",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112409": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "NE",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "DAL",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Gillette Stadium",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "FOX",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112410": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "SF",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "GB",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Levi's® Stadium",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "NBC",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    },
+    "2019112500": {
+        "home": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "LA",
+            "to": null
+        },
+        "away": {
+            "score": {
+                "1": null,
+                "2": null,
+                "3": null,
+                "4": null,
+                "5": null,
+                "T": null
+            },
+            "abbr": "BAL",
+            "to": null
+        },
+        "bp": 0,
+        "down": null,
+        "togo": null,
+        "clock": null,
+        "posteam": null,
+        "note": null,
+        "redzone": null,
+        "stadium": "Los Angeles Memorial Coliseum",
+        "media": {
+            "radio": {
+                "home": null,
+                "away": null
+            },
+            "tv": "ESPN",
+            "sat": null,
+            "sathd": null
+        },
+        "yl": null,
+        "qtr": null
+    }
+}

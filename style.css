@@ -83,7 +83,7 @@
   margin: 10px;
 }
 
-.gameCard h4 {
+.gameCard h3 {
   margin: 2px 0px;
   line-height: 30px;
 }
@@ -100,6 +100,15 @@
 .gameCardDetails {
   font-size: 11pt;
   padding: 5px 5px;
+}
+
+.gameCardAwayTeamSad,
+.gameCardHomeTeamSad {
+  color: darkgray;
+}
+
+.gameCardOwnerSad {
+  text-decoration: line-through;
 }
 
 /*
