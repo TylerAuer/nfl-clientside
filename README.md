@@ -35,12 +35,12 @@ I used two different NFL APIs to build this site:
 ### Very Likely
 -   Rewrite code for game cards so that they
     - Display in a meaninful order
-    - Can be refreshed without page jumps
+    - ~~Can be refreshed without page jumps~~
     - Show more details
         - possession
         - down and distance
 -   Bump chart showing rank over time
--   Smoother refreshing of standings and cards
+-   ~~Smoother refreshing of standings and cards~~
 -   Error messages in case APIs go down
 
 ### Maybe
