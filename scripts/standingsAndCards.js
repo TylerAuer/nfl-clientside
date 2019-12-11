@@ -8,6 +8,15 @@
 // (2) For current week's scores and games
 // https://feeds.nfl.com/feeds-rs/scores.json
 
+// Wraps HTML with a tag and, optionally, attributes
+function wrapInTag(stringToWrap, tagType, HTMLAttributes) {
+  // Expects strings for all parameters
+  // Returns HTML string wrapped in tag with optional attributes
+  HTMLAttributes = HTMLAttributes || ""
+  var result = "<" + tagType + " " + HTMLAttributes + ">" + stringToWrap + "</" + tagType + ">"
+  return result
+}
+
 // ###############
 // Data Structures
 // ###############
