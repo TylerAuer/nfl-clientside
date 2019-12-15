@@ -42,32 +42,30 @@
 */
 
 /* Helps avoid screen jolt on refresh */
-#gameCardContainer {
-  min-height: 2500px;
-}
+#gameCardContainer {}
 
 /* Sets the number of columns in .card-columns categories*/
 @media (min-width: 576px) {
   .card-columns {
-    column-count: 2;
+    column-count: 1;
   }
 }
 
 @media (min-width: 768px) {
   .card-columns {
-    column-count: 3;
+    column-count: 2;
   }
 }
 
 @media (min-width: 992px) {
   .card-columns {
-    column-count: 4;
+    column-count: 3;
   }
 }
 
 @media (min-width: 1200px) {
   .card-columns {
-    column-count: 5;
+    column-count: 3;
   }
 }
 
@@ -98,8 +96,9 @@
 }
 
 .gameCardDetails {
-  font-size: 11pt;
+  font-size: 9pt;
   padding: 5px 5px;
+  font-style: italic;
 }
 
 .gameCardAwayTeamSad,
@@ -111,22 +110,7 @@
   text-decoration: line-through;
 }
 
-/*
-.gameCardFooterPregame {
-  background: lightgrey;
-  color: black;
-}
 
-.gameCardFooterInProgress {
-  background: #4d4d4d;
-  color: white;
-}
-
-.gameCardFooterGameOver {
-  background: darkgrey;
-  color: white; 
-}
-*/
 .gameCardFooterPregame {
   background: #333333;
   color: white;

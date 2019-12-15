@@ -409,15 +409,15 @@ function updateScorecards() {
         var gameId = game.gameSchedule.gameId
         var gameDate = game.gameSchedule.gameDate
         var gameStartTime = game.gameSchedule.gameTimeEastern
-        var gameLocation = game.gameSchedule.siteFullname
+        var gameLocation = game.gameSchedule.site.siteFullname
         var d = new Date(gameDate)
-        dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        dayNames = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
         gameDay = dayNames[d.getDay()]
 
         var awayTeam = game.gameSchedule.visitorTeamAbbr
         // Fix Jac vs Jax discrepency
-        if (awayTeam == "Jax") {
-          awayTeam = "Jac"
+        if (awayTeam == "JAX") {
+          awayTeam = "JAC"
         }
 
         var awayTeamWinsOwner = teams[awayTeam][0]
@@ -426,8 +426,8 @@ function updateScorecards() {
 
         var homeTeam = game.gameSchedule.homeTeamAbbr
         // Fix Jac vs Jax discrepency
-        if (homeTeam == "Jax") {
-          homeTeam = "Jac"
+        if (homeTeam == "JAX") {
+          homeTeam = "JAC"
         }
         var homeTeamWinsOwner = teams[awayTeam][0]
         var homeTeamLossesOwner = teams[awayTeam][1]
@@ -436,28 +436,39 @@ function updateScorecards() {
         var gameWinner = null // Can be use to check if a game is over 
 
         // Checks if games have not begun which return Null for score nodes
+        var gameState = undefined
+        var qtrTimeLeft = undefined
+        var down = undefined
+        var distance = undefined
+        var yardline = undefined
+        var yardlineSide = undefined
+        var awayTeamTOLeft = undefined
+        var homeTeamTOLeft = undefined
+        var gameWinner = null
+        var posTeam
+
         if (game.score != null) {
-          var gameState = game.score.phaseDescription // Null, ..., Final
-          var qtrTimeLeft = game.score.time
+          gameState = game.score.phaseDescription // Null, ..., Final
+          qtrTimeLeft = game.score.time
           if (gameState != "FINAL") {
-            var posTeam = game.score.possessionTeamAbbr
+            posTeam = game.score.possessionTeamAbbr
           }
-          var down = game.score.down
-          var distance = game.score.yardsToGo
-          var yardline = game.score.yardline
-          var yardlineSide = game.score.yardlineSide
+          down = game.score.down
+          distance = game.score.yardsToGo
+          yardline = game.score.yardline
+          yardlineSide = game.score.yardlineSide
 
-          var awayTeamScore = game.score.visitorTeamScore.pointTotal
-          var awayTeamTOLeft = game.score.visitorTeamScore.timeoutsRemaining
+          awayTeamScore = game.score.visitorTeamScore.pointTotal
+          awayTeamTOLeft = game.score.visitorTeamScore.timeoutsRemaining
 
-          var homeTeamScore = game.score.homeTeamScore.pointTotal
-          var homeTeamTOLeft = game.score.homeTeamScore.timeoutsRemaining
+          homeTeamScore = game.score.homeTeamScore.pointTotal
+          homeTeamTOLeft = game.score.homeTeamScore.timeoutsRemaining
 
           // Determines winner if game is over
           if (gameState == "FINAL") {
             if (awayTeamScore == homeTeamScore) {
               gameWinner = "Tie"
-            } else if (awayTeamScore > homeTeamScore) {
+            } else if (gameWinner > homeTeamScore) {
               gameWinner = awayTeam
             } else {
               gameWinner = homeTeam
@@ -465,9 +476,9 @@ function updateScorecards() {
           }
         }
 
-        // Build Card Element
-        var gameCard
+        // var gameCard = ""
 
+        // Build Card Element
         // Makes new gameCard unless one exists
         if (document.getElementById(gameId) == null) {
           // If making a new gameCard
@@ -490,11 +501,12 @@ function updateScorecards() {
         const awayTeamInfo = document.createElement('div')
         awayTeamInfo.className += ' gameCardScore'
 
+        var awayTeamLine1HTML = ""
         var awayTeamLine2HTML = ""
 
         if (gameWinner == awayTeam) {
 
-          awayTeamLine1HTML = wrapInTag(awayTeam + " " + awayTeamScore, "span", 'class="gameCardAwayTeamHappy";')
+          awayTeamLine1HTML += wrapInTag(awayTeam + " " + awayTeamScore, "span", 'class="gameCardAwayTeamHappy";')
 
           if (awayTeamWinsOwner != null) {
             awayTeamLine2HTML += wrapInTag("<b>W: </b>" + awayTeamWinsOwner, "span", 'class="gameCardOwnerHappy";')
@@ -503,9 +515,11 @@ function updateScorecards() {
           if (awayTeamLossesOwner != null) {
             awayTeamLine2HTML += wrapInTag("<b>L: </b>" + awayTeamLossesOwner, "span", 'class="gameCardOwnerSad";')
           }
+
+
         } else if (gameWinner == homeTeam) {
 
-          awayTeamLine1HTML = wrapInTag(awayTeam + " " + awayTeamScore, "span", 'class="gameCardAwayTeamSad";')
+          awayTeamLine1HTML += wrapInTag(awayTeam + " " + awayTeamScore, "span", 'class="gameCardAwayTeamSad";')
 
           if (awayTeamWinsOwner != null) {
             awayTeamLine2HTML += wrapInTag("<b>W: </b>" + awayTeamWinsOwner, "span", 'class="gameCardOwnerSad";')
@@ -514,7 +528,12 @@ function updateScorecards() {
           if (awayTeamLossesOwner != null) {
             awayTeamLine2HTML += wrapInTag("<b>L: </b>" + awayTeamLossesOwner, "span", 'class="gameCardOwnerHappy";')
           }
+
+
         } else {
+
+          awayTeamLine1HTML += awayTeam + " " + awayTeamScore
+
           if (homeTeamWinsOwner != null) {
             awayTeamLine2HTML += "<b>W: </b>" + homeTeamWinsOwner + " "
           }
@@ -530,9 +549,10 @@ function updateScorecards() {
           awayScoreHTML += " *" // Asterix is placeholder for possession icon
         }
 
-        var awayTeamLine1HTML = wrapInTag(awayTeamLine1HTML, "h3", 'class="gameCardAwayTeam";')
+        awayTeamLine1HTML = wrapInTag(awayTeamLine1HTML, "h3", 'class="gameCardAwayTeam";')
         awayTeamLine2HTML = wrapInTag(awayTeamLine2HTML, "span", 'class="gameCardOwner";')
         awayTeamInfo.innerHTML = awayTeamLine1HTML + "<br>" + awayTeamLine2HTML
+
 
 
         // Home team (top). Placed in gameCard <div>. Ex:
@@ -541,11 +561,12 @@ function updateScorecards() {
         const homeTeamInfo = document.createElement('div')
         homeTeamInfo.className += ' gameCardScore'
 
+        var homeTeamLine1HTML = ""
         var homeTeamLine2HTML = ""
 
         if (gameWinner == homeTeam) {
 
-          homeTeamLine1HTML = wrapInTag(homeTeam + " " + homeTeamScore, "span", 'class="gameCardHomeTeamHappy";')
+          homeTeamLine1HTML += wrapInTag(homeTeam + " " + homeTeamScore, "span", 'class="gameCardHomeTeamHappy";')
 
           if (homeTeamWinsOwner != null) {
             homeTeamLine2HTML += wrapInTag("<b>W: </b>" + homeTeamWinsOwner, "span", 'class="gameCardOwnerHappy";')
@@ -556,7 +577,7 @@ function updateScorecards() {
           }
         } else if (gameWinner == awayTeam) {
 
-          homeTeamLine1HTML = wrapInTag(homeTeam + " " + homeTeamScore, "span", 'class="gameCardHomeTeamSad";')
+          homeTeamLine1HTML += wrapInTag(homeTeam + " " + homeTeamScore, "span", 'class="gameCardHomeTeamSad";')
 
           if (homeTeamWinsOwner != null) {
             homeTeamLine2HTML += wrapInTag("<b>W: </b>" + homeTeamWinsOwner, "span", 'class="gameCardOwnerSad";')
@@ -566,6 +587,8 @@ function updateScorecards() {
             homeTeamLine2HTML += wrapInTag("<b>L: </b>" + homeTeamLossesOwner, "span", 'class="gameCardOwnerHappy";')
           }
         } else {
+          homeTeamLine1HTML += homeTeam + " " + homeTeamScore
+
           if (homeTeamWinsOwner != null) {
             homeTeamLine2HTML += "<b>W: </b>" + homeTeamWinsOwner + " "
           }
@@ -586,36 +609,35 @@ function updateScorecards() {
         homeTeamInfo.innerHTML = homeTeamLine1HTML + "<br>" + homeTeamLine2HTML
 
 
+
         // Footer time details
         const details = document.createElement('div')
         details.className += ' gameCardDetails card-footer text-right'
 
-        // Game has not begun
-        if (gameState == null) {
+        switch (gameState) {
+          case undefined:
+            details.innerHTML += gameDay + " @ " + gameLocation
+            break
 
-          details.innerHTML += (
-            // Game start time is in ARMY time right now, need to fix
-            wrapInTag(gameDay + " " + gameStartTime, "span", 'class="gameCardDetailsTime";') + "<br>" +
-            wrapInTag(gameLocation, "span", 'class="gameCardDetailsLocation";')
-          )
+          case "FINAL":
+            details.innerHTML += "Final"
+            details.className += " bg-dark text-white"
+            break
 
-          details.className += " gameCardFooterPregame"
+          case "HALFTIME":
+            details.innerHTML += "Halftime"
+            details.className += " bg-danger text-white"
+            break
 
-          // Game is over
-        } else if (gameState == "FINAL") {
+          case "1" || "2" || "3" || "4":
+            details.innerHTML += down + " and " + distance + " | Q" + gameState + " " + qtrTimeLeft
+            details.className += " bg-danger text-white"
+            break
 
-          details.innerHTML = "Final<br>" + wrapInTag(gameDay + " " + gameLocation, "span", 'class="gameCardDetailsTime";')
-          details.className += " gameCardFooterGameOver"
-
-        } else if (gameState == "HALFTIME") {
-
-
-
-        } else {
-
-          // Down and distance
-          // Time Left | QTR
-
+          case "5": // Overtime
+            details.innerHTML += down + " and " + distance + " | OT " + qtrTimeLeft
+            details.className += " bg-warning text-white"
+            break
         }
 
         // Adds info to gameCardBody
