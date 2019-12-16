@@ -390,7 +390,10 @@ function updateStandings() {
 function updateScorecards() {
 
   var request = new XMLHttpRequest()
-  request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
+  // request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
+  // Load historical API for testing
+  request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-4.json', true)
+
   request.onload = function () {
 
     // Div holding all of the game cards
@@ -405,7 +408,11 @@ function updateScorecards() {
       gameCardsDivHeader.innerHTML = "Week " + weekNumber + " Games"
 
       //// For loop each game
-      for (game of data.gameScores) {
+      data.gameScores.forEach(game => {
+        // Variables for 
+
+
+
         var gameId = game.gameSchedule.gameId
         var gameDate = game.gameSchedule.gameDate
         var gameStartTime = game.gameSchedule.gameTimeEastern
@@ -445,10 +452,10 @@ function updateScorecards() {
         var awayTeamTOLeft = undefined
         var homeTeamTOLeft = undefined
         var gameWinner = null
-        var posTeam
+        var posTeam = undefined
 
         if (game.score != null) {
-          gameState = game.score.phaseDescription // Null, ..., Final
+          gameState = game.score.phase // Null, ..., Final
           qtrTimeLeft = game.score.time
           if (gameState != "FINAL") {
             posTeam = game.score.possessionTeamAbbr
@@ -473,6 +480,24 @@ function updateScorecards() {
             } else {
               gameWinner = homeTeam
             }
+          }
+
+          // Renames down with fancy name (ex: 1 --> 1st)
+          switch (down) {
+            case 1:
+              down = '1st'
+              break
+
+            case 2:
+              down = '2nd'
+              break
+
+            case 3:
+              down = '3rd'
+              break
+
+            case 4:
+              down = '4th'
           }
         }
 
@@ -546,7 +571,7 @@ function updateScorecards() {
 
         // Adds possesion marker, if neeeded
         if (posTeam == awayTeam) {
-          awayScoreHTML += " *" // Asterix is placeholder for possession icon
+          awayTeamLine1HTML += " *" // Asterix is placeholder for possession icon
         }
 
         awayTeamLine1HTML = wrapInTag(awayTeamLine1HTML, "h3", 'class="gameCardAwayTeam";')
@@ -601,20 +626,19 @@ function updateScorecards() {
 
         // Adds possesion marker, if neeeded
         if (posTeam == homeTeam) {
-          homeScoreHTML += " *" // Asterix is placeholder for possession icon
+          homeTeamLine1HTML += " *" // Asterix is placeholder for possession icon
         }
 
         var homeTeamLine1HTML = wrapInTag(homeTeamLine1HTML, "h3", 'class="gameCardHomeTeam";')
         homeTeamLine2HTML = wrapInTag(homeTeamLine2HTML, "span", 'class="gameCardOwner";')
         homeTeamInfo.innerHTML = homeTeamLine1HTML + "<br>" + homeTeamLine2HTML
 
-
-
         // Footer time details
         const details = document.createElement('div')
         details.className += ' gameCardDetails card-footer text-right'
 
         switch (gameState) {
+          case "PREGAME":
           case undefined:
             details.innerHTML += gameDay + " @ " + gameLocation
             break
@@ -629,8 +653,12 @@ function updateScorecards() {
             details.className += " bg-danger text-white"
             break
 
-          case "1" || "2" || "3" || "4":
-            details.innerHTML += down + " and " + distance + " | Q" + gameState + " " + qtrTimeLeft
+          case "Q1":
+          case "Q2":
+          case "Q3":
+          case "Q4":
+
+            details.innerHTML += down + " and " + distance + " | " + gameState + " " + qtrTimeLeft
             details.className += " bg-danger text-white"
             break
 
@@ -651,7 +679,12 @@ function updateScorecards() {
         // Add .gameCard to .gameCardContainer
         gameCardContainer.appendChild(gameCard)
 
-      }
+
+
+
+
+      })
+
 
     } else {
 
