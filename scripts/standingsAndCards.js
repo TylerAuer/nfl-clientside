@@ -660,7 +660,7 @@ function updateScorecards() {
             break
 
           case "FINAL":
-            details.innerHTML += "Final"
+            details.innerHTML += "Game Over"
             details.className += " bg-dark text-white"
             break
 
@@ -674,7 +674,7 @@ function updateScorecards() {
           case "Q3":
           case "Q4":
 
-            details.innerHTML += down + " & " + distance + " (" + yardline + ") " + gameState + " " + qtrTimeLeft
+            details.innerHTML += down + " & " + distance + " (" + yardline + ") | " + qtrTimeLeft + " " + gameState
             details.className += " bg-danger text-white"
             break
 
