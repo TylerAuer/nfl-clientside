@@ -674,7 +674,7 @@ function updateScorecards() {
           case "Q3":
           case "Q4":
 
-            details.innerHTML += down + " and " + distance + " | " + gameState + " " + qtrTimeLeft
+            details.innerHTML += down + " & " + distance + " (" + yardline + ") " + gameState + " " + qtrTimeLeft
             details.className += " bg-danger text-white"
             break
 
