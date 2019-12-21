@@ -390,9 +390,11 @@ function updateStandings() {
 function updateScorecards() {
 
   var request = new XMLHttpRequest()
-  // request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
-  // Load historical API for testing
-  request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-4.json', true)
+  request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
+
+  // Used to test locally save APIs. 
+  // Will need to ignore CORS restrictions to make work
+  // request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-4.json', true)
 
   request.onload = function () {
 
@@ -414,12 +416,18 @@ function updateScorecards() {
 
 
         var gameId = game.gameSchedule.gameId
-        var gameDate = game.gameSchedule.gameDate
+        var gameDate = game.gameSchedule.isoTime
         var gameStartTime = game.gameSchedule.gameTimeEastern
         var gameLocation = game.gameSchedule.site.siteFullname
         var d = new Date(gameDate)
-        dayNames = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
-        gameDay = dayNames[d.getDay()]
+        var dayNames = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
+        var dayHour = d.getHours() % 12
+        var dayMinute = d.getMinutes().toString()
+        // Adds leading 0 to avoid time like 1:5 for 1:05
+        if (dayMinute.length < 2) {
+          dayMinute = "0" + dayMinute
+        }
+        dateString = dayNames[d.getDay()] + " " + dayHour + ":" + dayMinute
 
         var awayTeam = game.gameSchedule.visitorTeamAbbr
         // Fix Jac vs Jax discrepency
@@ -640,7 +648,7 @@ function updateScorecards() {
         switch (gameState) {
           case "PREGAME":
           case undefined:
-            details.innerHTML += gameDay + " @ " + gameLocation
+            details.innerHTML += dateString + " @ " + gameLocation
             break
 
           case "FINAL":
