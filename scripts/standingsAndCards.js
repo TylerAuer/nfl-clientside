@@ -390,11 +390,11 @@ function updateStandings() {
 function updateScorecards() {
 
   var request = new XMLHttpRequest()
-  request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
+  // request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
 
   // Used to test locally save APIs. 
   // Will need to ignore CORS restrictions to make work
-  // request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-4.json', true)
+  request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-15.json', true)
 
   request.onload = function () {
 
@@ -430,7 +430,7 @@ function updateScorecards() {
         dateString = dayNames[d.getDay()] + " " + dayHour + ":" + dayMinute
 
         var awayTeam = game.gameSchedule.visitorTeamAbbr
-        // Fix Jac vs Jax discrepency
+        // Fix Jac vs Jax discrepancy
         if (awayTeam == "JAX") {
           awayTeam = "JAC"
         }
@@ -444,8 +444,8 @@ function updateScorecards() {
         if (homeTeam == "JAX") {
           homeTeam = "JAC"
         }
-        var homeTeamWinsOwner = teams[awayTeam][0]
-        var homeTeamLossesOwner = teams[awayTeam][1]
+        var homeTeamWinsOwner = teams[homeTeam][0]
+        var homeTeamLossesOwner = teams[homeTeam][1]
         var homeTeamScore = 0 // For games that have not begun
 
         var gameWinner = null // Can be use to check if a game is over 
@@ -459,14 +459,17 @@ function updateScorecards() {
         var yardlineSide = undefined
         var awayTeamTOLeft = undefined
         var homeTeamTOLeft = undefined
-        var gameWinner = null
         var posTeam = undefined
 
         if (game.score != null) {
           gameState = game.score.phase // Null, ..., Final
           qtrTimeLeft = game.score.time
-          if (gameState != "FINAL") {
+          if (gameState != "FINAL" && gameState != "PREGAME" && gameState != "HALFTIME") {
             posTeam = game.score.possessionTeamAbbr
+            // Fix Jac vs Jax discrepency
+            if (posTeam == "JAX") {
+              posTeam = "JAC"
+            }
           }
           down = game.score.down
           distance = game.score.yardsToGo
@@ -483,7 +486,7 @@ function updateScorecards() {
           if (gameState == "FINAL") {
             if (awayTeamScore == homeTeamScore) {
               gameWinner = "Tie"
-            } else if (gameWinner > homeTeamScore) {
+            } else if (awayTeamScore > homeTeamScore) {
               gameWinner = awayTeam
             } else {
               gameWinner = homeTeam
@@ -528,6 +531,8 @@ function updateScorecards() {
         const gameCardBody = document.createElement('div')
         gameCardBody.className += ' card-body'
 
+        var posIcon = '<img src="img/posIcon.png" alt="Possession Icon" class="posIcon">'
+
         // Away team (top). Placed in gameCard <div>. Ex:
         // JAX 24 *
         // W: Tyler L: Dan
@@ -567,22 +572,23 @@ function updateScorecards() {
 
           awayTeamLine1HTML += awayTeam + " " + awayTeamScore
 
-          if (homeTeamWinsOwner != null) {
-            awayTeamLine2HTML += "<b>W: </b>" + homeTeamWinsOwner + " "
+          if (awayTeamWinsOwner != null) {
+            awayTeamLine2HTML += "<b>W: </b>" + awayTeamWinsOwner + " "
           }
-          if (homeTeamLossesOwner != null) {
-            awayTeamLine2HTML += "<b>L: </b>" + homeTeamLossesOwner
+          if (awayTeamLossesOwner != null) {
+            awayTeamLine2HTML += "<b>L: </b>" + awayTeamLossesOwner
           }
         }
 
         var awayScoreHTML = wrapInTag(awayTeamScore, "span", 'class="gameCardAwayTeamScore";')
 
-        // Adds possesion marker, if neeeded
+        // Adds possession marker, if needed
         if (posTeam == awayTeam) {
-          awayTeamLine1HTML += " *" // Asterix is placeholder for possession icon
+          awayTeamLine1HTML += posIcon
+          awayTeamLine1HTML = wrapInTag(awayTeamLine1HTML, "h3", 'class="gameCardAwayTeam";')
+        } else {
+          awayTeamLine1HTML = wrapInTag(awayTeamLine1HTML, "h3", 'class="gameCardAwayTeam";')
         }
-
-        awayTeamLine1HTML = wrapInTag(awayTeamLine1HTML, "h3", 'class="gameCardAwayTeam";')
         awayTeamLine2HTML = wrapInTag(awayTeamLine2HTML, "span", 'class="gameCardOwner";')
         awayTeamInfo.innerHTML = awayTeamLine1HTML + "<br>" + awayTeamLine2HTML
 
@@ -632,12 +638,14 @@ function updateScorecards() {
 
         var homeScoreHTML = wrapInTag(homeTeamScore, "span", 'class="gameCardHomeTeamScore";')
 
-        // Adds possesion marker, if neeeded
+        // Adds possession marker, if needed
         if (posTeam == homeTeam) {
-          homeTeamLine1HTML += " *" // Asterix is placeholder for possession icon
+          homeTeamLine1HTML += posIcon
+          homeTeamLine1HTML = wrapInTag(homeTeamLine1HTML, "h3", 'class="gameCardHomeTeam";')
+        } else {
+          homeTeamLine1HTML = wrapInTag(homeTeamLine1HTML, "h3", 'class="gameCardHomeTeam";')
         }
 
-        var homeTeamLine1HTML = wrapInTag(homeTeamLine1HTML, "h3", 'class="gameCardHomeTeam";')
         homeTeamLine2HTML = wrapInTag(homeTeamLine2HTML, "span", 'class="gameCardOwner";')
         homeTeamInfo.innerHTML = homeTeamLine1HTML + "<br>" + homeTeamLine2HTML
 

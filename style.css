@@ -59,13 +59,13 @@
 
 @media (min-width: 992px) {
   .card-columns {
-    column-count: 3;
+    column-count: 2;
   }
 }
 
 @media (min-width: 1200px) {
   .card-columns {
-    column-count: 3;
+    column-count: 2;
   }
 }
 
@@ -108,8 +108,15 @@
 
 .gameCardOwnerSad {
   text-decoration: line-through;
+  color: darkgray;
 }
 
+.posIcon {
+  height: 20px;
+  width: auto;
+  margin-left: 5px;
+  vertical-align: middle;
+}
 
 .gameCardFooterPregame {
   background: #333333;
