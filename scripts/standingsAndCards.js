@@ -678,7 +678,11 @@ function updateScorecards() {
             details.className += " bg-danger text-white"
             break
 
-          case "5": // Overtime
+          case "OT1":
+          case "OT2":
+          case "OT3":
+          case "OT4":
+          case "OT5": // Overtime
             details.innerHTML += down + " and " + distance + " | OT " + qtrTimeLeft
             details.className += " bg-warning text-white"
             break
