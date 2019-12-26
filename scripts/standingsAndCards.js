@@ -390,11 +390,11 @@ function updateStandings() {
 function updateScorecards() {
 
   var request = new XMLHttpRequest()
-  request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
+  // request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
 
   // Used to test locally save APIs. 
   // Will need to ignore CORS restrictions to make work
-  // request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-18.json', true)
+  request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-32.json', true)
 
   request.onload = function () {
 
@@ -464,7 +464,7 @@ function updateScorecards() {
         if (game.score != null) {
           gameState = game.score.phase // Null, ..., Final
           qtrTimeLeft = game.score.time
-          if (gameState != "FINAL" && gameState != "PREGAME" && gameState != "HALFTIME") {
+          if (gameState != "FINAL" && gameState != "FINAL_OVERTIME" && gameState != "PREGAME" && gameState != "HALFTIME") {
             posTeam = game.score.possessionTeamAbbr
             // Fix Jac vs Jax discrepency
             if (posTeam == "JAX") {
@@ -657,6 +657,7 @@ function updateScorecards() {
           case "PREGAME":
           case undefined:
             details.innerHTML += dateString + " @ " + gameLocation
+            details.className += " bg-info text-white"
             break
 
           case "FINAL":
@@ -684,7 +685,7 @@ function updateScorecards() {
           case "OT3":
           case "OT4":
           case "OT5": // Overtime
-            details.innerHTML += down + " and " + distance + " | OT " + qtrTimeLeft
+            details.innerHTML += down + " and " + distance + " | " + qtrTimeLeft + " OT"
             details.className += " bg-warning text-white"
             break
         }
