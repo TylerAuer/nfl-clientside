@@ -390,11 +390,11 @@ function updateStandings() {
 function updateScorecards() {
 
   var request = new XMLHttpRequest()
-  // request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
+  request.open('GET', 'https://feeds.nfl.com/feeds-rs/scores.json', true)
 
   // Used to test locally save APIs. 
   // Will need to ignore CORS restrictions to make work
-  request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-32.json', true)
+  // request.open('GET', 'http://nfl.mathfireworks.com/APIs/API-Example-32.json', true)
 
   request.onload = function () {
 
