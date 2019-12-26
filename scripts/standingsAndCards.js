@@ -483,7 +483,7 @@ function updateScorecards() {
           homeTeamTOLeft = game.score.homeTeamScore.timeoutsRemaining
 
           // Determines winner if game is over
-          if (gameState == "FINAL") {
+          if (gameState == "FINAL" || gameState == "FINAL_OVERTIME") {
             if (awayTeamScore == homeTeamScore) {
               gameWinner = "Tie"
             } else if (awayTeamScore > homeTeamScore) {
