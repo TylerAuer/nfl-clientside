@@ -30,6 +30,7 @@ This is a project I developed to build my web development skills. It is a resour
 - Better safeguards for unsucessful API calls
 - Have `.js` file follow norms for organization, commenting, etc.
 - Have the scorecards order themselves logically instead of in the order they are listed in the API
+- Intentional choices for `const` vs `let` vs `var`
 
 ## API Information
 
