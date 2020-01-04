@@ -407,7 +407,26 @@ function updateScorecards() {
 
       weekNumber = data.week
       var gameCardsDivHeader = document.getElementById("gameCardTitle")
-      gameCardsDivHeader.innerHTML = "Week " + weekNumber + " Games"
+      switch (weekNumber) {
+        case 18:
+          weekNumber = "Playoffs: Wildcard Round"
+          gameCardsDivHeader.innerHTML = weekNumber
+          break
+        case 19:
+          weekNumber = "Playoffs: Divisional Round"
+          gameCardsDivHeader.innerHTML = weekNumber
+          break
+        case 20:
+          weekNumber = "Playoffs: Conference Championships"
+          gameCardsDivHeader.innerHTML = weekNumber
+          break
+        case 21:
+          weekNumber = "Super Bowl"
+          gameCardsDivHeader.innerHTML = weekNumber
+          break
+        default:
+          gameCardsDivHeader.innerHTML = "Week " + weekNumber + " Games"
+      }
 
       //// For loop each game
       data.gameScores.forEach(game => {
@@ -720,7 +739,7 @@ function updateScorecards() {
 
 // Loads the scorecards and then refreshes every 20 seconds
 updateScorecards() // Loads the scorecards initially
-window.setInterval(updateScorecards, 20000) // Updates every 20 seconds
+window.setInterval(updateScorecards, 5000) // Updates every 5 seconds
 
 
 // Runs once everything else has loaded and run
