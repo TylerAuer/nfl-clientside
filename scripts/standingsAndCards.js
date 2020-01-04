@@ -407,22 +407,20 @@ function updateScorecards() {
 
       weekNumber = data.week
       var gameCardsDivHeader = document.getElementById("gameCardTitle")
+
+      // For playoffs
       switch (weekNumber) {
         case 18:
-          weekNumber = "Playoffs: Wildcard Round"
-          gameCardsDivHeader.innerHTML = weekNumber
+          gameCardsDivHeader.innerHTML = "Playoffs: Wildcard Round"
           break
         case 19:
-          weekNumber = "Playoffs: Divisional Round"
-          gameCardsDivHeader.innerHTML = weekNumber
+          gameCardsDivHeader.innerHTML = "Playoffs: Divisional Round"
           break
         case 20:
-          weekNumber = "Playoffs: Conference Championships"
-          gameCardsDivHeader.innerHTML = weekNumber
+          gameCardsDivHeader.innerHTML = "Playoffs: Conference Championships"
           break
         case 21:
-          weekNumber = "Super Bowl"
-          gameCardsDivHeader.innerHTML = weekNumber
+          gameCardsDivHeader.innerHTML = "Super Bowl"
           break
         default:
           gameCardsDivHeader.innerHTML = "Week " + weekNumber + " Games"
