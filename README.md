@@ -1,33 +1,24 @@
 # nfl-clientside
 
-This is a project I developed to build my web development skills. It is a resource for an NFL league I run with some family and friends.
+This is a project I developed to build my web-development skills. It is a resource for an NFL league I run with some family and friends.
 
 ## What I Learned
 
 - Git and Github
-
 - Accessing and parsing JSON and XML files through an API
-
 - Using vanilla JavaScript to modify HTML DOM
-
 - Looping functions on delay (for my API calls)
-
 - Changing the DOM without visible flashing/changes
-
 - Different types of `for` loops
-
   - `for...of`
-
   - `for...in`
-
   - `forEach`
-
 - JavaScript Date object
 - Difference between JavaScripts and Python variable scopes -- particularly that control flow statements (`if`, `for`, etc.) do not limit a variable's scope in JavaScript
 
 ## What I Would Change
 
-- Better safeguards for unsucessful API calls
+- Better safeguards for unsuccessful API calls
 - Have `.js` file follow norms for organization, commenting, etc.
 - Have the scorecards order themselves logically instead of in the order they are listed in the API
 - Intentional choices for `const` vs `let` vs `var`
