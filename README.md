@@ -2,6 +2,8 @@
 
 This is a project I developed to build my web-development skills. It is a resource for an NFL league I run with some family and friends.
 
+> [See it live!](http://nfl.mathfireworks.com/)
+
 ## What I Learned
 
 - Git and Github
@@ -27,31 +29,31 @@ This is a project I developed to build my web-development skills. It is a resour
 
 I used two different NFL APIs to build this site:
 
-1. ***XML*** - <http://www.nfl.com/feeds-rs/standings/2019/REG>
+1. **_XML_** - <http://www.nfl.com/feeds-rs/standings/2019/REG>
 
-    This feed updates within about 5 minute of the end of a game. It contains many details including:
+   This feed updates within about 5 minute of the end of a game. It contains many details including:
 
-    - wins, losses, and ties
+   - wins, losses, and ties
 
-    - week number (updates Thu. AM)
+   - week number (updates Thu. AM)
 
-    - *Note that it uses JAC for Jacksonville instead of JAX*
+   - _Note that it uses JAC for Jacksonville instead of JAX_
 
-2. ***JSON*** - <https://feeds.nfl.com/feeds-rs/scores.json>
+2. **_JSON_** - <https://feeds.nfl.com/feeds-rs/scores.json>
 
-    This feed is in real-time as games are progressing. I used a [Python script](https://github.com/TylerAuer/nfl-clientside/blob/master/api_downloader.py) to downloads APIs on two different Sundays. You might use [them](https://github.com/TylerAuer/nfl-clientside/tree/master/APIs) to help since the NFL has no documentation for this API.
+   This feed is in real-time as games are progressing. I used a [Python script](https://github.com/TylerAuer/nfl-clientside/blob/master/api_downloader.py) to downloads APIs on two different Sundays. You might use [them](https://github.com/TylerAuer/nfl-clientside/tree/master/APIs) to help since the NFL has no documentation for this API.
 
-    One important detail is that the games have a few different states:
+   One important detail is that the games have a few different states:
 
-    - `'PREGAME'`
+   - `'PREGAME'`
 
-    - `'HALFTIME'`
+   - `'HALFTIME'`
 
-    - `'FINAL'` and `'FINAL_OVERTIME'`
+   - `'FINAL'` and `'FINAL_OVERTIME'`
 
-    - `'Q1'`, `'Q2'`, `'Q3'`, and `'Q4'`  
+   - `'Q1'`, `'Q2'`, `'Q3'`, and `'Q4'`
 
-    - `'OT1'`, `'OT2'`, `'OT3'` ...  *(multiple overtimes is currently only possible in playoff games)*
+   - `'OT1'`, `'OT2'`, `'OT3'` ... _(multiple overtimes is currently only possible in playoff games)_
 
 ## About the League
 
