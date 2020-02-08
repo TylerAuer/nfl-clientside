@@ -1,6 +1,6 @@
 # nfl-clientside
 
-This is a project I developed to build my web-development skills. It is a resource for an NFL league I run with some family and friends.
+This is a project I developed to build my web-development skills. It is a resource for an NFL league I run for some family and friends.
 
 > [See it live!](http://nfl.mathfireworks.com/)
 
@@ -16,14 +16,15 @@ This is a project I developed to build my web-development skills. It is a resour
   - `for...in`
   - `forEach`
 - JavaScript Date object
-- Difference between JavaScripts and Python variable scopes -- particularly that control flow statements (`if`, `for`, etc.) do not limit a variable's scope in JavaScript
+- Difference between JavaScripts and Python variable scopes -- particularly that control flow statements (`if`, `for`, etc.) do not limit a variable's scope in JavaScript -- when using `var` declarations
 
 ## What I Would Change
 
 - Better safeguards for unsuccessful API calls
 - Have `.js` file follow norms for organization, commenting, etc.
 - Have the scorecards order themselves logically instead of in the order they are listed in the API
-- Intentional choices for `const` vs `let` vs `var`
+- Make use of features from ECMAScript 6
+- `const` and `let` instead of `var` where appropriate
 
 ## API Information
 
@@ -41,7 +42,7 @@ I used two different NFL APIs to build this site:
 
 2. **_JSON_** - <https://feeds.nfl.com/feeds-rs/scores.json>
 
-   This feed is in real-time as games are progressing. I used a [Python script](https://github.com/TylerAuer/nfl-clientside/blob/master/api_downloader.py) to downloads APIs on two different Sundays. You might use [them](https://github.com/TylerAuer/nfl-clientside/tree/master/APIs) to help since the NFL has no documentation for this API.
+   This feed updates in real-time (or at least live with my DirecTV streaming) as games are progressing. I used a [Python script](https://github.com/TylerAuer/nfl-clientside/blob/master/api_downloader.py) to download APIs on two different Sundays to better understand the structure of the JSON data. You might use [them](https://github.com/TylerAuer/nfl-clientside/tree/master/APIs) to help since the NFL has no documentation for this API.
 
    One important detail is that the games have a few different states:
 
@@ -57,7 +58,7 @@ I used two different NFL APIs to build this site:
 
 ## About the League
 
-This style of league is great because it takes very little effort but makes the whole season more fun. Each person drafts a certain number of teams for either their wins or their losses. Once a team's wins or losses have been drafted, no other participant can draft that team. You then get a point for each matching result (ex: if I draft the Jaguars for wins, I get one point for each win they accumulate during the season.)
+This style of league is great because it takes very little effort but makes the whole season more fun. Each person drafts a certain number of teams for either their wins or their losses. Once a team's wins or losses have been drafted, no other participant can draft that team. You then get a point for each matching result (ex: if I draft the Jaguars for wins, I get one point for each win they accumulate during the season.) No points for ties.
 
 ### **Tips**
 
