@@ -1,10 +1,14 @@
 # nfl-clientside
 
-This is a project I developed to build my web-development skills. It is a resource for an NFL league I run for some family and friends.
+I built this site to track an NFL league I ran for friends for the 2019 NFL Seasons. This site no longer works because the NFL killed their APIs (also the season is over).
 
-> [See it live!](http://nfl.mathfireworks.com/)
+This was one of the first sites I hacked together as I was learning JavaScript. I used arrays for ***everything***, `XMLHttpRequest`, `var`, and packed everything into a single JavaScript file. I've learned **a lot** since.
 
-## What I Learned
+Checkout the [new version](https://github.com/TylerAuer/nfl-wins-losses) built with TypeScript, React, and Express.
+
+## Old Notes from when I Originally Built This
+
+### What I Learned
 
 - Git and Github
 - Accessing and parsing JSON and XML files through an API
@@ -18,7 +22,7 @@ This is a project I developed to build my web-development skills. It is a resour
 - JavaScript Date object
 - Difference between JavaScripts and Python variable scopes -- particularly that control flow statements (`if`, `for`, etc.) do not limit a variable's scope in JavaScript -- when using `var` declarations
 
-## What I Would Change
+### What I Would Change
 
 - Better safeguards for unsuccessful API calls
 - Have `.js` file follow norms for organization, commenting, etc.
@@ -26,7 +30,7 @@ This is a project I developed to build my web-development skills. It is a resour
 - Make use of features from ECMAScript 6
 - `const` and `let` instead of `var` where appropriate
 
-## API Information
+### API Information
 
 I used two different NFL APIs to build this site:
 
@@ -56,11 +60,11 @@ I used two different NFL APIs to build this site:
 
    - `'OT1'`, `'OT2'`, `'OT3'` ... _(multiple overtimes is currently only possible in playoff games)_
 
-## About the League
+### About the League
 
 This style of league is great because it takes very little effort but makes the whole season more fun. Each person drafts a certain number of teams for either their wins or their losses. Once a team's wins or losses have been drafted, no other participant can draft that team. You then get a point for each matching result (ex: if I draft the Jaguars for wins, I get one point for each win they accumulate during the season.) No points for ties.
 
-### **Tips**
+#### **Tips**
 
 - Leave a few teams undrafted, so no one gets stuck with the worst team (ex: with 10 participants we each drafted 6 teams leaving 4 undrafted)
 
